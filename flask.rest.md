@@ -73,4 +73,48 @@ It retrieves all the elements of the resource ```item`` and in OOP it would be l
 
 REST is **stateless** one request does not depend on the previous requests. If the data from previous requests is required in the future requests it should be send with all the future requests. E.g. user logs in a system with a first ```GET``` request and it receives an identification *token*. This *token* should be sent together will all the subsequent requests otherwise the server does not know that the request comes from that specific user.
 
+## JSON - support for data transmission
+
+```JSON``` is used by REST to send and receive data between the clients and server(s). Flask is using ```flask.jsonify``` to transform a dictionary into a JSON string.
+
+In case the data structure which has to be sent is not a dictionary but a list of dictionaries then it should be make a dictionary first and then called ```flask.jsonify```:
+
+```python
+stores = [
+    {
+        'name:':'Furniture Store',
+        'items' : [
+            {
+                'name' : 'Chair',
+                'price' : 15.99
+            },
+            {
+                'name' : 'Armchair',
+                'price' : 66.66
+            },
+        ],
+    },
+]
+
+# GET /store
+#   return a list with all the stores
+@app.route('/store', methods=['GET'])
+def get_stores():
+    return jsonify({'stores': stores}), 200
+```
+
+JSON **ALWAYS** uses **DOUBLE QUOTES** and NOT single quotes.
+
+## Postman POST with REST data
+
+Using postman to send a POST request to the server:
+
++ setup the appropriate headers to have the server recognising the conent as ```JSON```
+  
+![POST setup in headers](postman-post-rest-headers.png)
+
++ specify the REST API data: the JSON object
+
+![POST data](postman-post-rest-body.png)
+
 
