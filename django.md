@@ -90,4 +90,60 @@ It will result in a basic management of the model database items: add, remove, e
 ## Queries
 
 Database abstraction API that lets you create, retrieve, update, and delete objects easily. The Django **object-relational mapper (ORM)** is compatible with MySQL, PostgreSQL, SQLite, Oracle, and MariaDB.
+The Django ORM is based on **QuerySets**. A QuerySet is a collection of database queries to retrieve objects from your database.
 
+Opening a django **shell**:
+```bash
+python manage.py shell
+```
+
+add a new object **shell** :
+
+```python
+from django.contrib.auth.models import User
+from blog.models import Post
+user = User.objects.get(username='admin')
+post = Post(title='Another post',slug='another-post',body='Post body',author=user)
+post.save()
+```
+
+get all objects:
+```python
+all_posts = Post.objects.all()
+all_posts
+```
+
+get objects with a filter:
+```python
+Post.objects.filter(publish__year=2020)
+all_posts
+```
+
+multiple filters:
+```python
+Post.objects.filter(publish__year=2021, author__username='admin')
+Post.objects.filter(publish__year=2021).filter(author__username='admin')
+```
+
+filter and exclude:
+```python
+Post.objects.filter(publish__year=2020) .exclude(title__startswith='Why')
+```
+
+order ascending:
+```python
+    Post.objects.order_by('title')
+```
+
+order descending:
+```python
+    Post.objects.order_by('-title')
+```
+
+deleting objects:
+```python
+post = Post.objects.get(id=1)
+post.delete()
+```
+**NOTE**:
+Note that deleting objects will also delete any dependent relationships for **ForeignKey** objects defined with **on_delete** set to **CASCADE**.
