@@ -72,6 +72,20 @@ It retrieves all the elements of the resource `item`` and in OOP it would be lik
 
 REST is **stateless** one request does not depend on the previous requests. If the data from previous requests is required in the future requests it should be send with all the future requests. E.g. user logs in a system with a first `GET` request and it receives an identification *token*. This *token* should be sent together will all the subsequent requests otherwise the server does not know that the request comes from that specific user.
 
+## REST return codes 
+
+#### Success
+**200** OK
+**201** Created 
+**202** Accepted
+
+#### Errors
+
+**400** Bad Request
+**401** Access Denied/Authorization Required
+**404** Not Found
+
+
 ## JSON - support for data transmission
 
 `JSON` is used by REST to send and receive data between the clients and server(s). Flask is using `flask.jsonify` to transform a dictionary into a JSON string.
