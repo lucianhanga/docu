@@ -85,6 +85,7 @@ REST is **stateless** one request does not depend on the previous requests. If t
 **401** Access Denied/Authorization Required
 **404** Not Found
 
+**500** Server Internal Error
 
 ## JSON - support for data transmission
 
