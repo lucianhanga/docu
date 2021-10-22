@@ -99,4 +99,71 @@ function Star ( {selected = false, onSelect =  f => f}) {
 ```
 Further down, at the end when the element **FaStar** is constructed for its `onClick()` prop the `Star` component passes the callback received from the `StarRating`. When the user clicks on the star then it will cascade trigger all the calls up the tree.
 
+### Create custom hooks
 
+Create a custom hook to be used with forms and to avoid copy pasting in multiple paces of the same code.
+
+```jsx
+
+import { useState } from "react";
+
+export const useInput = initialValue => {
+    const [value, setValue] = useState(initialValue);
+    return [
+        {  
+            value, 
+            onChange : e => setValue(e.target.value),
+        },
+        () => setValue(initialValue)
+    ] ;
+}
+```
+1. The custom hook is called `useImput` and it takes as argument the initial value like in the case of the predefined `useState`.
+2. Then will use the array destructuring to get the retun values from the `useState` hook: the `value` and the **function** to set the value. 
+3. It will **return** also two items: first an object containing the `value` and the **callback** which will be give to the DOM to be called when the `input` **value** changes. And as a second table element will return a function which setup the devalue value (`initialValue`) of the element which uses the hook.
+
+declaration of a **data** using this **hook** to get the input information from the form:
+
+```jsx
+  const [titleProps, resetTitle] = useInput("");
+  const [colorProps, resetColor] = useInput("#000000");
+```
+
+usage of the `xxxProps` into the Form component:
+
+```jsx
+ <input
+      { ...titleProps }
+      style = {{  margin:".5em" }}
+      type = "text"
+      placeholder = "color title"
+      required
+  />
+```
+
+!!! - Notice the spreding of the properties: `  { ...titleProps }` 
+
+
+### Using Contexts
+
+To avoid passing **callbacks** down the tree and then at the end of the tree calling the callback function to pass back the **values**  the **contexts** can be used.
+
+To place data into a **context**, a **context provider** should be created. A **context provider** is a React component which can be used to wrap a complete or just a part of a component tree. The second part of the context is the **context consumer**, the componet which retrieves the **data** from the **context**. 
+
+example of a **component provider**
+
+```jsx
+export const ColorContext = createContext();
+
+render(
+  <ColorContext.Provider value={{ colors }}>
+    <App />
+  </ColorContext.Provider>,
+  document.getElementById("root")
+);
+```
+
+to use the data in the **context** the standard/predefined **userContext** hook will be used.
+```jsx
+const { colors } = useContext(ColoContext);
+```
