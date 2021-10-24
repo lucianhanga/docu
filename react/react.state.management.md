@@ -167,3 +167,63 @@ to use the data in the **context** the standard/predefined **userContext** hook 
 ```jsx
 const { colors } = useContext(ColoContext);
 ```
+
+### Create a custom context and a hook to hide the context
+
+```jsx
+const ColorContext = createContext();
+export const useColors = () => useContext(ColorContext);
+
+export default function ColorProvider({children}) {
+    // initialize the state (data) and add the state hooks to access it 
+    const [colors, setColors] = useState(/*initial values*/);
+    // add functionality function
+    const function1 = (title, color) => setColors( /* code */ )
+    // more functionality
+    const rateColor = (id, rating) =>  setColors(colors.map(  color => color.id === id ? { ...color, rating} : color));
+    const removeColor = (id) => setColors(colors.filter( color => color.id !== id ));
+
+    // return the custom provider 
+    return (
+        <ColorContext.Provider value = {{ colors, setColors, addColor, rateColor, removeColor }} >
+            {children}
+        </ColorContext.Provider>
+
+    );
+}
+```
+
+this custom provider will be declared like:
+
+```jsx
+
+import ColorProvider from './hooks/ColorProvider';
+render(
+  // define the context provider which wraps all the application component tree
+  <ColorProvider>
+    <App />
+  </ColorProvider>,
+  document.getElementById('root')
+);
+
+```
+
+and use like this:
+
+```jsx
+import { useColors } from "../hooks/ColorProvider";
+
+function ColorList () {
+    // get the colors from context using the useContext hook
+    const {colors} = useColors();
+    // no colors provided
+    if(!colors.length) 
+        return (
+            <div>
+                No Colors Listed!
+            </div>
+        );
+}
+export default ColorList;
+
+```
