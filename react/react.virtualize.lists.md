@@ -9,6 +9,10 @@ The most popular of **virtualized lists** for the browser are `react-window` and
 ```bash
 npm i faker
 ```
+or 
+```bash
+yarn add faker
+```
 This library helps the generation of fake data which is needed between other for testing the virutalized lists implementaions.
 
 usage example:
@@ -23,3 +27,37 @@ const bigList = [...Array(5000)].map(() => ({
 }));
 ```
 
+### using a virtualized list
+
+`npm i react-window` or `yarn add react-window` installs the library.
+
+```jsx
+
+import {FixedSizeList} from "react-window";
+
+export default function App() {
+  const renderRow = ({index, style}) => (
+    <div style={{ ...style, ...{ display: "flex"} }}>
+      <img src={bigList[index].avatar} alt={bigList[index].name} width={50} />
+      <p>
+        {bigList[index].name} - {bigList[index].email}
+      </p>
+    </div>
+  );
+
+  return (
+    <FixedSizeList
+      height = {window.innerHeight}
+      width = {window.innerWidth}
+      itemCount = {bigList.length}
+      itemSize={50}>
+        {renderRow}
+      </FixedSizeList>
+  )
+}
+
+```
+
+A big difference from the normal `List` implemention is that the render prop is being passed to `FixedSizeList` as the **children** property. 
+
+!!! - This render props pattern is used quite frequently.
