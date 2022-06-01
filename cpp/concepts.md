@@ -144,3 +144,110 @@ int main() {
     return 0;
 }
 ```
+
+## *requires* expreisons
+
+```c++
+requires {
+    requirement-definitions
+}
+```
+or 
+```c++
+requires(params) {
+    requirement-definitions which uses params
+}
+```
+
+compiler is using he parameters to check if they statisfy the requirements in the `requires` braces.
+
+There are four requirement types:
+
+- simple
+- type
+- compound
+- nested
+
+### Simple Requirements
+
+checks if the expresion is valid
+e.g.
+
+if any of the simple requirements between brackets does not compile then the type is not a `range`.
+```c++
+template <class T> 
+concept range = 
+    requires (T& t) {
+        std::rages::begin(t);
+        std::ranges::end(t);
+    };
+```
+
+another example specifies operator expresions
+
+```c++
+template<typename T>
+concept ArithmeticType = 
+    requires (T a, T b) {
+        a + b;
+        a - b;
+        a * b;
+        a / b;
+        a += b;
+        a *= b;
+        a -= b;
+        a /= b;
+    };
+```
+
+### Type Requirements
+
+```c++
+template<typename T>
+concept HasValueType = 
+    requires (T& t) {
+        typename T::value_type;
+    };
+```
+
+If the type `T` does not have a nested `value_type` then the expresion would evaluate to `false`.
+
+### Compound Requirements
+
+allows to specify an expresion that also has requirements on the result.
+
+```c++
+    { expresion } -> return-type-requirement
+```
+
+
+```c++
+template<typename T>
+concept incr = 
+    requires (I i) {
+        { i++ } -> same_as<I>;
+    };
+```
+
+### Ad-Hoc Constraints
+
+```c++
+template<typename T>
+   requires requires(const T& t) {
+      std::ranges::begin(t);
+      std::ranges::end(t);
+  }
+void printRange(const T& range) {
+  for (const auto& item : range) {
+     std::cout << item << " ";
+  }
+}
+```
+
+The **first** `requires` introduces the **requires clause**.
+The **second** `requires` introduces the **requires expression**.
+
+### Testing c++20 concepts with `static_assert`
+
+`concepts` produce a compile-time `bool` value which can be tested **at compile time** with `static_assert`. 
+
