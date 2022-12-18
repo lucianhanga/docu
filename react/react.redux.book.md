@@ -25,6 +25,8 @@ npm run server
 - `--watch db.json` - file/database where the server is managing the data.
 
 
+
+
 ## JSON Client Plugin
 <hr><br>
 
@@ -63,6 +65,9 @@ Content-Type: application/json
 DELETE http://localhost:3001/books/1 HTTP/1.1
 ```
 
+
+
+
 ## useEffect
 <hr><br>
 
@@ -84,6 +89,43 @@ If the function given to `useEffect` call in the subsequent rerenders depends on
 - *empty list* `[]` - is called only at *initial render* and never called again.
 - *no argument* - is called after all the renders of the component.
 - *a list with one or more arguments* `[counter]` - it is called at the initial render and also at subsequent renders if the element(s) in the list changed from the previous render.
+
+
+
+## Add an global listener using useEffect 
+<hr><br>
+
+```javascript
+useEffect( () => {
+    console.log("useEffect() function called.");
+    const listener = () => {
+      console.log("clicked.");
+    };
+    document.body.addEventListener("click", listener);
+    const cleanUp = () => {
+      console.log('cleanup');
+      document.body.removeEventListener("click", listener);
+    }
+    return cleanUp;
+  } );
+```
+since no second parameter is give to the `useEffect()` function, it will be called at each rendering, but as a side effect it will register every time a new handler for the `click` event at documnet level. 
+To avoid this, in the `cleanup()` function which is returned by the `useEffect()` the listener should be unregistered/removed.
+
+The porfi vesion of the code above:
+
+```jsx
+useEffect( () => {
+    const listener = () => {
+      console.log("clicked.");
+    };
+    document.body.addEventListener("click", listener);
+    return () => {
+      document.body.removeEventListener("click", listener);
+    }
+  } );
+```
+
 
 
 ## createContext & useContext
