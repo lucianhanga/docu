@@ -131,3 +131,40 @@ useEffect( () => {
 ## createContext & useContext
 <hr><br>
 
+
+## create react & redux app
+<hr><br>
+
+```bash
+# npx create-react-app app_name
+# install a library to generate fake data  
+npm install @faker-js/faker 
+# install react-redux library
+npm install react-redux
+# install redux-toolkit - RTK
+npm install @reduxjs/toolkit
+# install axios - REST API client library
+npm install axios
+# install classnames - linbrary for className management
+npm install classnames
+# install a server for REST API
+npm install json-server
+# install react-icons - a library for icons 
+npm install react-icons
+# install the tailwind css library
+# the installation should be followed from the website
+# https://https://tailwindcss.com/docs/guides/create-react-app
+#
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+# and ... from the website 
+```
+
+setting up the basics for the `json-server` which is using a JSON file as database.
+- create a file e.g. `media.db` in the root folder of the project (NOT in `src` but in root.)
+- to start the `json-server` in the `package.json` add in the `"scripts"` section the following line:
+`"start:server" : json-server  --watch db.json  --port 3005"`
+- run the `json-server` in another terminal:
+```bash
+npm start-server
+``` 
