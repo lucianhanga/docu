@@ -112,6 +112,9 @@ const total = (shipped, subTotal) => '$' + ffunc(shipped, subTotal);
 export { total }
 ```
 
+**IMPORTANT** check out the next chapter too imediatelly after this piece of code.
+
+
 the testing module: 
 ```js
 // App.test.js
@@ -157,6 +160,41 @@ test("total", () => {
   expect( ffunc ).toBeCalledTimes(2);
 })
 ```
+
+## Mocking inside the test() function
+
+If the mocking is done inside the `test` function then
+the default value for the `jest.fn()` is taken in consideration.
+Not sure if this is the way to go, but up to this point I didn't find any documentation about placing inside the `test` or outside the `test` function the `mocking` calls.
+
+
+```js 
+
+test("total", () => {
+
+  jest.mock('./calculus', () => {
+    const originalModule = jest.requireActual('./calculus');
+    return {
+      ...originalModule,
+      __esModule: true,
+      ffunc : jest.fn( () => 3), 
+      foo : "xxx", // rewrite the foo value 
+      bar : () => "bar rewritten",
+      default: jest.fn( () => "mocked default"),
+    }
+  });
+  expect(defaultFunc()).toBe("mocked default");
+  expect(bar()).toBe("bar rewritten");
+  expect(foo).toBe("xxx");
+  expect( total(1,2)).toBe('$3');
+  expect( ffunc ).toBeCalledTimes(1);
+  ffunc.mockImplementation( () => 6 );
+  expect( total(2,4)).toBe('$6');
+  expect( ffunc ).toBeCalledTimes(2);
+})
+```
+
+
 ## Some JEST terminology
 ---
 - `fakes` is a function defined using `jest.fn()` which allowes a lot of surveiliance and modifications over the function during the run time. e.g.
@@ -181,3 +219,59 @@ or seeing what argumets were used and many more spying on the function.
 
 - `mock` - used which fake stuff has to be defined/represented. A function, an object, a module can be mocked to provide/generate some fake data.
 
+## Console Error
+---
+
+If you get in the tests console errors even if the test passes you can use:
+```js
+console.error = jest.fn()
+```
+to get rid of the console errors and to acount for the error output you can use in the test:
+```js
+expect(console.error).toBeCalled();
+```
+
+## Testing for attributes
+
+don't forget to import
+```js
+import '@testing-library/jest-dom'
+```
+
+examples of usage:
+```js
+test("<BookShow/> without props", () => {
+    render(<BookShow/>);
+    const titleElement = screen.getByTestId('title-testid');
+    expect(titleElement.textContent).toBe('default book');
+    const imgElement = screen.getByTestId('img-testid');
+    expect(imgElement)
+      .toHaveAttribute('src','https://picsum.photos/seed/42390/300/200');
+    expect(imgElement.getAttribute('src'))
+      .toBe('https://picsum.photos/seed/42390/300/200');
+
+})
+```
+when testing a `component` without `props` you might whant to have this code inside the `component` to be able to render it in the testing environemnt without props.
+
+```js
+function BookShow( {book, onDelete, onChangeTitle} ) {
+
+    // defaults, if the props are not provided
+    book = book ?? { title: 'default book', id : 42390 };
+    onDelete = onDelete ?? (() => {});
+    onChangeTitle = onChangeTitle ?? ( () => {});
+    //...
+}
+```
+
+## Negative assertions
+
+
+```js
+test("<BookShow/> without props", () => {
+    render(<BookShow/>);
+    const imgElement = screen.getByTestId('img-testid');
+    expect(imgElement).not.toBeNull();
+})
+```
