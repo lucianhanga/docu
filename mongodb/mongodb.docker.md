@@ -1,6 +1,7 @@
 # MongoDB in Docker 
 
 ## Install and run the mongoDB
+---
 
 Pull and create the container using a local folder for the database.
 
@@ -39,6 +40,7 @@ drwx------ 2 999 999 4096 Dec 13 21:35 journal
 -rw------- 1 999 999  114 Dec 13 21:35 storage.bson
 ```
 ## Connect to mongodb from the docker 
+---
 
 To test if all ok, first connect to the mongoDB from the containter.
 
@@ -59,9 +61,45 @@ root@9a631ac0b065:/#
 
 ```
 
+## Install mongodb on the client/host
+---
+
+```bash
+$ cat /etc/os-release 
+PRETTY_NAME="Debian GNU/Linux 11 (bullseye)"
+NAME="Debian GNU/Linux"
+VERSION_ID="11"
+VERSION="11 (bullseye)"
+VERSION_CODENAME=bullseye
+ID=debian
+```
+
+https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-debian/
+
+```bash
+$ sudo apt-get install gnupg
+$ wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
+Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)).
+OK
+$ echo "deb http://repo.mongodb.org/apt/debian bullseye/mongodb-org/6.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+$ sudo apt-get update
+$ sudo apt-get install mongodb-mongosh
+$ sudo apt-get install mongocli
+```
+
+
 ## Connect to mongodb from the host
+---
 
 Once the mongoDB is running in the containter the user can connect to it from the local host like it is connecting from the docker containter, by just running ```mongo``` command.
+
+```bash
+$ mongosh 
+Current Mongosh Log ID: 63bd271a4675055500c28398
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.2
+Using MongoDB:          6.0.3
+Using Mongosh:          1.6.2
+```
 
 
 

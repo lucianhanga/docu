@@ -1,9 +1,13 @@
 # MongoDB & Python
 
-switch to a database
-
-```mongodb
+```bash
+# show all databases
+show databases
+# switch to a database
 use sandbox
+# show all collections/tables in the selected db
+show collections
+show tables
 ```
 
 ## Inserting Records
@@ -11,8 +15,8 @@ use sandbox
 Insert **single** records to the currently selected database in the collection ```people```.
 
 
-```mongodb
-db.people.insert(
+```json
+db.people.insertOne(
     { 
         "first name" : "James",
         "last name" : "Thompson",
@@ -23,13 +27,16 @@ db.people.insert(
 ``` 
 if successful the result should look like:
 
-```mongodb
-WriteResult({ "nInserted" : 1 })
+```json
+{
+  acknowledged: true,
+  insertedId: ObjectId("63bd28d2f4b7737194a72b4f")
+}
 ```
 
 Insert multiple recods with one command, all the json documents are provided as a parameter in a list/array []:
 
-```mongodb
+```json
 db.people.insertMany(
     [
        {
@@ -46,6 +53,18 @@ db.people.insertMany(
         }
     ]
 )
+```
+
+if successfull:
+
+```json
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId("63bd2906f4b7737194a72b50"),
+    '1': ObjectId("63bd2906f4b7737194a72b51")
+  }
+}
 ```
 
 ## Searching Documents
@@ -102,7 +121,10 @@ db.people.find({"name":"John Smith"}, {"age":1})
 
 ## Update a document
 
-The update function it takes  two arguments—the first specifying the criteria to find the document we want to update, and the second providing a new document to replace it with:
+The update function it takes  two arguments—the first specifying the criteria to find the document we want to update, and the second providing a new document to replace it with.
+
+> **Important**<br>
+> only the first match is updated!
 
 ```mongodb
 db.people.update(
@@ -139,8 +161,8 @@ db.people.update(
  >
 ```
 
-***WARNING***
-To remove all the documents from a collection, we can pass in an empty argument. 
+>***WARNING***<br>
+>To remove all the documents from a collection, we can pass in an empty argument. 
 ```mongodb
 db.people.remove({})
 ```
