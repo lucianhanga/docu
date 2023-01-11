@@ -77,14 +77,12 @@ ID=debian
 https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-debian/
 
 ```bash
-$ sudo apt-get install gnupg
-$ wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
-Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)).
-OK
-$ echo "deb http://repo.mongodb.org/apt/debian bullseye/mongodb-org/6.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
-$ sudo apt-get update
-$ sudo apt-get install mongodb-mongosh
-$ sudo apt-get install mongocli
+sudo apt-get install gnupg
+wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
+echo "deb http://repo.mongodb.org/apt/debian bullseye/mongodb-org/6.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+sudo apt-get update
+sudo apt-get install mongodb-mongosh
+sudo apt-get install mongocli
 ```
 
 
