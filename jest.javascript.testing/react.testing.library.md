@@ -62,5 +62,71 @@ test('calls onUserAdd when the form is submitted', () => {
 })
 ```
 
+
+## Testing Playground - identify **roles**
+
+```js
+  // render the component
+  render(<UserList users = {users}/>);
+  // temporary - try to identify the role for getByRole
+  screen.logTestingPlaygroundURL();
+```
+
+as a result you will get an URL:
+
+https://testing-playground.com/#markup=DwEwlgbgfMAuCGAjANgUxrAFq+IMCcNMoA5eAW1WAHosioBRc+MZGu9w97XDRAexABPAhjwApfpgB27PHDwArKdIACAd1SIAdCCq15tLrGMT40-bHlWoiiqlVD4mfv20BjfuTkwjv2ALC-khovuDQQA
+
+This URL encodes into it in `base64` all the HTML generated. When opened in a browser you can select different components of the HTML and get a hint how to select that document in `react testing library`. 
+
+If you cannot select an element, try to give it some style in the top-left window so it is easier to select.
+e.g. 
+```css
+style="border: 10px solid red; display:block;"
+```
+
+## using **data-testid**
+---
+When the `role` is not to be found, or if it just doesn't work out to isolate the element(s) needed, then the `data-testid` can be used.
+
+example of usage:
+```js
+    //...
+      <tbody data-testid="user">
+        {tableRenderedUsers}
+      </tbody>
+    //...
+
+```
+and in the test:
+```js
+  // find the table body
+  const tableBody = screen.getByTestId('user');
+  // find all rows in the table
+  const rows = within(tableBody).getAllByRole('row');
+```
+
+## using **container** and **querySelector**
+---
+
+when the `render` function from `react testing library` is called a container is created for the component which was rendered. The container contains the HTML code rendered by the element within a `<div></div>`
+
+usage example:
+
+```js
+  // render the component
+  const {container} = render(<UserList users = {users}/>);
+  // find all rows in the table
+  // eslint-disable-next-line
+  const rows = container.querySelectorAll('tbody tr');
+```
+the `querry selector` is a method of the `HTMLElement` class. It is used to find elements in the HTML code.
+
+> **Note:** Disable `eslint` hints/warnings <br>
+> use the following comment imediatelly before the line which you want to disable the warning: <br>
+> `// eslint-disable-next-line`
+
+
+
+
 > **Note:** Tutorial for React Testing Library<br>
-> video: 17
+> video: 30
