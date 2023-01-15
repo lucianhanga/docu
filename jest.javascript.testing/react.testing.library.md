@@ -175,7 +175,7 @@ test("InputLabels has an a Name and an Email", () => {
 })
 ```
 
-### Finding **Icon buttons**
+## Finding **Icon buttons**
 ---
 
 ```jsx
@@ -198,8 +198,16 @@ testing:
   submitButton.isInDocument();
 ```
 
+## Prefixes in query functions
+---
 
-### rtl-book
+- `get` - if the element is not found, it will throw an error
+- `query` - if the element is not found, it will return `null`
+- `find` - if the element is not found, it will wait for it to appear
+
+
+
+## rtl-book
 ---
 
 is a tool to help you learn `react testing library` by doing exercises.
