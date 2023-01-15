@@ -125,6 +125,90 @@ the `querry selector` is a method of the `HTMLElement` class. It is used to find
 > use the following comment imediatelly before the line which you want to disable the warning: <br>
 > `// eslint-disable-next-line`
 
+## getByRole
+---
+
+If its returns more than one element, then it will throw an error. To get all the elements use `getAllByRole`. But if you want to get a specific one you need to provide further information. 
+
+```js
+  // find all rows in the table
+  const rows = screen.getAllByRole('row');
+  // find the first row in the table
+  const firstRow = screen.getByRole('row', {name: 'John Doe'});
+```
+
+you can use also regular expresions: 
+
+```js
+  // find the first row in the table
+  const firstRow = screen.getByRole('row', {name: /John/});
+```
+
+These extra parameters are called `options` and they are optional. The one use above is the `accesable name` of the element.
+
+## Accesible Name in case of **input** elements
+---
+
+```js
+const InputLabels = () => {
+  return (
+    <div>
+      <label htmlFor="name">Name</label>
+      <input id="name"/>
+
+      <label htmlFor="email">Email</label>
+      <input id="email"/>
+
+    </div>
+  );
+}
+render(<InputLabels/>)
+```
+and the test:
+```js
+test("InputLabels has an a Name and an Email", () => {
+  render(<InputLabels/>);
+  const nameInput = screen.getByRole('textbox', { name : /name/i});
+  const emailInput = screen.getByRole('textbox', { name : /email/i});
+  expect(nameInput).toBeInTheDocument();
+  expect(nameInput).toBeInTheDocument();
+})
+```
+
+### Finding **Icon buttons**
+---
+
+```jsx
+    <div>
+      <button aria-label='Input'>
+          <svg/>
+      </button>
+      <button aria-label='Submit'>
+          <svg/>
+      </button>
+    </div>
+```
+
+testing:
+
+```js
+  const inputButton = screen.getByRole('button', {name: /input/i});
+  const submitButton = screen.getByRole('button', {name: /submit/i});
+  inputButton.isInDocument();
+  submitButton.isInDocument();
+```
+
+
+### rtl-book
+---
+
+is a tool to help you learn `react testing library` by doing exercises.
+To start it run the following command in the terminal:
+```bash
+npx rtl-book serve roles-notes.js
+```
+and then open the browser at the following URL:
+http://localhost:4005/
 
 
 
