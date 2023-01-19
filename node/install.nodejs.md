@@ -6,7 +6,7 @@ by default in debian apt repository you don't find the latest version of `nodejs
 
 ```bash
 $ sudo apt-get install curl software-properties-common 
-$ curl -sL https://deb.nodesource.com/setup_18.x | sudo bash -
+$ curl -sL https://deb.nodesource.com/setup_19.x | sudo bash -
 $ sudo apt-get install -y nodejs
 $ npm install --global yarn
 $ node -v 
