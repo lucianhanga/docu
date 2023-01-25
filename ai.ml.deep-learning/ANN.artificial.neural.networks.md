@@ -1,5 +1,7 @@
 # ANN - Artificial Neural Network
 
+Geoffrey Hinton is the grandfather of the Artificial Neural Networks.
+
 ## The Neuron
 
 ---
