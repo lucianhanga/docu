@@ -4,7 +4,7 @@
 `Callback hell` is a code structure that is hard to read and maintain. It is a common problem in JavaScript, especially when using asynchronous code. It is called callback hell because of the way the code is structured. It looks like a `pyramid of nested callbacks`.
 
 **How to avoid callback hell?**
-Using `Promises` and `async/await` is a good way to avoid callback hell. They are both based on the `concept of a promise`, which is an object that represents the result of an asynchronous operation. 
+Using `Promises` and `async/await` is a good way to avoid callback hell. They are both based on the `concept of a promise`, which is an object that represents the result of an asynchronous operation.
 
 A promise can be in one of three states:
 
@@ -23,7 +23,7 @@ The fs.readFile() method does not return a promise. It uses callbacks instead. M
 
 ```js
 
-// craete a promise for reading a file
+// create a promise for reading a file
 const readFilePromise = (file) => {
   return new Promise((resolve, reject) => {
     // executor function - readFile async function
@@ -77,7 +77,7 @@ readFilePromise('dog.txt')
 
 ## Using Promises with Async/Await
 
-`async` and `await` are two keywords that work together to make asynchronous code look synchronous. `async` is used to define a function that returns a promise. `await` is used to wait for a promise. 
+`async` and `await` are two keywords that work together to make asynchronous code look synchronous. `async` is used to define a function that returns a promise. `await` is used to wait for a promise.
 
 ```js
 const getDogPicture = async () => {
@@ -129,11 +129,11 @@ Another way to call an async function is to use the `IIFE` (Immediately Invoked 
     console.log(err);
   }
 })();
-``` 
+```
 
 ## Promise.all()
 
-Awaiting multiple promises at the same time is a common use case. The `Promise.all()` method takes an array of promises as an input, and returns a single promise. This promise resolves when all of the promises in the input array have resolved. 
+Awaiting multiple promises at the same time is a common use case. The `Promise.all()` method takes an array of promises as an input, and returns a single promise. This promise resolves when all of the promises in the input array have resolved.
 
 ```js
 const getDogPicture = async () => {
