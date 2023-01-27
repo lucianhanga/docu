@@ -122,4 +122,134 @@ e.g.
   REST API is `Sateless`: The server does not store any information about the client. The client must send all the information needed to process the request.
   The server should not store information about previous requests. The server should not store information about the client. The server should not store information about the client's session.
 
+## URL parameters
+
+In the call:
   
+  ```http
+  GET /users/1
+  ```
+
+`1` is a parameter. It is a value that is passed to the server. It is a part of the URL. It is a part of the request. It is a part of the request URL. It is a part of the request path. It is a part of the request path parameters.
+
+To obtain them in code:
+
+```js
+app.get('/users/:id', (req, res) => {
+  const id = req.params.id;
+  res.send(id);
+});
+```
+
+If there are more parameters:
+
+```js
+app.get('/users/:id/:name', (req, res) => {
+  const id = req.params.id;
+  const name = req.params.name;
+  res.send(id + ' ' + name);
+});
+```
+In case of optional parameters:
+
+```js
+app.get('/users/:id/:name?', (req, res) => {
+  const id = req.params.id;
+  const name = req.params.name;
+  res.send(id + ' ' + name);
+});
+```
+notice the `?` after the parameter name.
+
+
+## Request body
+
+In the call:
+  
+ ```http
+ POST /users
+ Content-Type: application/json
+
+  {
+    "name": "John",
+    "age": 30
+  }
+  ```
+
+`{ "name": "John", "age": 30 }` is a request body. It is a part of the request. It is a part of the request body. It is a part of the request body content. It is a part of the request body content type. It is a part of the request body content type JSON.
+
+To obtain it in code:
+
+```js
+app.post('/users', (req, res) => {
+  const body = req.body;
+  res.send(body);
+});
+```
+
+To have access to the body a middleware is needed:
+
+```js
+app.use(express.json());
+```
+make sure that you put this line before the routes.
+
+## The Request-Response Cycle
+
+The request-response cycle is the process by which the Express server receives a request, sends a response, and then goes back to waiting for another request.
+
+The request-response cycle is initiated by the client. The client sends a request to the server. The server receives the request and sends a response back to the client. The client receives the response and sends another request. The cycle continues.
+
+When express layer is hit with an requrest a `reqest` and `response` object are created. The request object is populated with data from the request. The response object is populated with methods that can be used to send a response back to the client.
+
+To be able to process the data middleware is needed. Middleware is a function that has access to the request and response objects. Middleware can be used to process the request, send a response, or call the next middleware in the stack.
+
+Example of a middleware:
+ - body parser
+ - logger
+ - setting headers
+ - routing
+
+All the middleware is called middleware stack. The middleware stack is a list of middleware functions that are called in the order they are added to the stack.
+
+e.g. 
+  
+  ```js
+  app.use(express.json());
+  app.use(logger);
+  app.use(auth);
+  app.use('/api/courses', courses);
+  ```
+  
+  Usualy the last middleware is the one that handles the request. It is the one that sends the response back to the client.
+
+  ## Create own middleware
+
+  ```js
+  function logger(req, res, next) {
+    console.log('Logging...');
+    next();
+  }
+
+  app.use(logger);
+  ```
+  `next()` is a function that is used to call the next middleware in the stack. If `next()` is not called the request will be left hanging.
+
+
+## Morgan middleware
+
+Morgan is a middleware that logs the request to the console. It is a third party middleware. It is not part of the Express framework.
+
+Install morgan:
+
+```bash
+npm i morgan
+```
+
+```js
+const morgan = require('morgan');
+app.use(morgan('dev'));
+```
+
+
+
