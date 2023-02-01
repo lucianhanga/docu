@@ -39,3 +39,20 @@ Is a Boltzmann machine with `no connections between the hidden nodes and the vis
 ![RBM](./resources/BM2.png)
 
 ## Contrastive Divergence
+
+The `visible nodes` are propagating and calculate the hidden nodes. The `hidden nodes` are propagating and calculate the `visible nodes`. And this process continues back and forth until the `visible nodes` are stable. This is called `gibbs sampling`.
+Beeing stable means that the `visible nodes` are not changing anymore the next time they are propagating. The process converges to a `stable state`. `Weights` are not changing during this process. 
+
+## DBN - Beep Belief Networks
+
+A `deep belief network` is a `stack of RBMs`. The `visible nodes` of the first RBM are the `hidden nodes` of the second RBM and so on. The `visible nodes` of the last RBM are the `output nodes` of the `deep belief network`.
+
+![DBN](./resources/BM3.png)
+
+**Awake-sleep algorithm** is used to train the `deep belief network`. 
+
+## DBM - Deep Boltzmann Machines
+
+The difference between a `deep belief network` and a `deep boltzmann machine` is that the in the `DBM` all the connections are undirected.
+
+![DBM](./resources/BM4.png)
