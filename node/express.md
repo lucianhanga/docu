@@ -251,5 +251,41 @@ const morgan = require('morgan');
 app.use(morgan('dev'));
 ```
 
+## Routers and Controllers in Express
+
+## Parameter Middleware
+
+```js
+const router = express.Router();
+
+router.param('id', (req, res, next, id) => {
+  console.log('ID: ', id);
+  next();
+});
+```
+example of usage:
+
+```http
+GET /users/1
+```
+in this case the `id` is `1` and the  paramter middleware will be called with `id` equal to `1`.
 
 
+The param middleware can be used for parameter validation. And in case of invalid parameter the middleware can send a response back to the client. In this case the next middleware in the stack will not be called. 
+
+## Chaining Middleware functions
+
+```js
+const router = express.Router();
+
+router.post('/', (req, res, next) => {
+  console.log('Middleware 1');
+  next();
+}, (req, res, next) => {
+  console.log('Middleware 2');
+  next();
+}, (req, res, next) => {
+  console.log('Middleware 3');
+  next();
+});
+```
