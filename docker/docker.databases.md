@@ -20,6 +20,7 @@ docker run -p 27017:27017 \
            -v /docker.volumes/mongodb.volume:/data/db  \
            --name mongo -d mongo
 ```
+![output](docker.mongodb.png)
 
 ## Docker mySQL 
 
@@ -35,7 +36,7 @@ docker run -p 3306:3306 \
            --name mysql -d mysql
 ```
 
-Connect to the mysql docker containter:
+Connect to the mysql docker container:
 
 ```bash
  mysql -h 127.0.0.1 -P 3306 -u root -p
