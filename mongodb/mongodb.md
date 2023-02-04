@@ -103,6 +103,31 @@ black listing of the **un**desired fields:
 >
 ```
 
+search using operators like `lt, gt, lte, gte, ne, in, nin, or, and, not, nor, exists, type, mod, regex, text, where, geoWithin, geoIntersects, near, nearSphere, all, elemMatch, size, bitsAllClear, bitsAllSet, bitsAnyClear, bitsAnySet, comment, and expr`.
+
+search for all people with age **greater** than 30:
+```mongodb
+> db.people.find({ "age" : { $gt : 30 } })
+```
+
+search for two conditions with **AND**:
+```mongodb
+> db.people.find({ "age" : { $gte : 30 }, "first name" : "Ann" })
+```
+
+search for two conditions with **OR**:
+```mongodb
+> db.people.find({ $or : 
+    [ 
+        { "age" : { $gte : 30 } }, 
+        { "first name" : "Ann" } 
+    ] 
+})
+```
+
+
+
+
 ## More Searching 
 
 **Important** to see the difference between the next two commands:
@@ -127,7 +152,7 @@ The update function it takes  two arguments—the first specifying the criteria 
 > only the first match is updated!
 
 ```mongodb
-db.people.update(
+db.people.updateOne(
     {"first name":"James"},
     {
         "first name": "James",
@@ -142,7 +167,7 @@ db.people.update(
 
 
 ```mongodb
-db.people.update(
+db.people.updateOne(
     {"first name":"James"},
     {
         $set:  
@@ -153,16 +178,84 @@ db.people.update(
 )
 ```
 
-## Remove a document from the collection
+To update more than one document, we can use the updateMany() function:
 
 ```mongodb
- > db.people.remove({ "first name" : "James"})
- WriteResult({ "nRemoved" : 1 })
- >
+db.people.updateMany(
+    {"first name":"James"},
+    {
+        $set:  
+        {
+            "age": 99
+        }
+    }
+)
 ```
+
+## Replace a document
+
+To replace a document, we can use the replaceOne() function:
+
+```mongodb
+db.people.replaceOne(
+    {"first name":"James"},
+    {
+        "first name": "James",
+        "last name": "Thompson",
+        "age": 53,
+        "web site": "www.james-thompson.com"
+    }
+)
+```
+
+or if you want to replace all the documents in the collection:
+
+```mongodb
+db.people.replaceOne(
+    {},
+    {
+        "first name": "James",
+        "last name": "Thompson",
+        "age": 53,
+        "web site": "www.james-thompson.com"
+    }
+)
+```
+
+or only a few documents:
+
+```mongodb
+db.people.replaceMany(
+    {"first name":"James"},
+    {
+        "first name": "James",
+        "last name": "Thompson",
+        "age": 53,
+        "web site": "www.james-thompson.com"
+    }
+)
+```
+
+
+## Remove a document from the collection
+
+delete one document from the collection:
+
+```mongodb
+db.people.deleteOne({"first name":"James"})
+```
+
+delete more than one document from the collection:
+
+```mongodb
+db.people.deleteMany({"first name":"James"})
+```
+
+delete all the documents from the collection:
 
 >***WARNING***<br>
 >To remove all the documents from a collection, we can pass in an empty argument. 
+
 ```mongodb
-db.people.remove({})
+db.people.deleteMany({})
 ```
