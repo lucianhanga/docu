@@ -10,7 +10,7 @@
 Steps to define correct RESTfull API:
 
 1. Separate your API into `logical resources`
-2. Expose structuerd URLs for each resource
+2. Expose structured URLs for each resource
 3. Use `HTTP methods` (verbs) to operate on resources
 4. Send and receive data in `JSON` format
 5. Be **stateless**
@@ -200,7 +200,7 @@ The request-response cycle is the process by which the Express server receives a
 
 The request-response cycle is initiated by the client. The client sends a request to the server. The server receives the request and sends a response back to the client. The client receives the response and sends another request. The cycle continues.
 
-When express layer is hit with an requrest a `reqest` and `response` object are created. The request object is populated with data from the request. The response object is populated with methods that can be used to send a response back to the client.
+When express layer is hit with an request a `request` and `response` object are created. The request object is populated with data from the request. The response object is populated with methods that can be used to send a response back to the client.
 
 To be able to process the data middleware is needed. Middleware is a function that has access to the request and response objects. Middleware can be used to process the request, send a response, or call the next middleware in the stack.
 
@@ -221,7 +221,7 @@ e.g.
   app.use('/api/courses', courses);
   ```
   
-  Usualy the last middleware is the one that handles the request. It is the one that sends the response back to the client.
+  Usually the last middleware is the one that handles the request. It is the one that sends the response back to the client.
 
   ## Create own middleware
 
@@ -268,7 +268,7 @@ example of usage:
 ```http
 GET /users/1
 ```
-in this case the `id` is `1` and the  paramter middleware will be called with `id` equal to `1`.
+in this case the `id` is `1` and the  parameter middleware will be called with `id` equal to `1`.
 
 
 The param middleware can be used for parameter validation. And in case of invalid parameter the middleware can send a response back to the client. In this case the next middleware in the stack will not be called. 
@@ -289,3 +289,85 @@ router.post('/', (req, res, next) => {
   next();
 });
 ```
+
+## Serving static files
+
+Build in middleware that can be used to serve static files. It is used to serve HTML, CSS, JS, images, etc.
+
+```js
+app.use(express.static('public'));
+app.use(express.static('public/images'));
+// with cache of 1 hour
+app.use(express.static('public/images', { maxAge: 3600 }));
+// with cache of 1 hour and etag
+// etag is a unique identifier of the file - it is used to check if the file has changed
+app.use(express.static('public/images', { maxAge: 3600, etag: true }));
+// with cache of 1 hour and etag and last modified
+// last modified is the date when the file was last modified
+app.use(express.static('public/images', { maxAge: 3600, etag: true, lastModified: true }));
+```
+
+when access from browser you don't have to use the `public` in the route:
+
+```http
+http://localhost:3000/hello.html
+```
+
+## Environment variable
+
+The environment variables come from process core module. 
+  ```js
+  console.log(process.env);
+  ```
+
+define the NODE_ENV variable:
+
+```bash 
+export NODE_ENV=development
+```
+
+possible values for NODE_ENV are: `development`, `production`, `test`, `provisioning`.  
+
+
+To organize the definition of the environment variables a package called `dotenv` is used. It is a third party package. It is not part of the Express framework.
+
+Install dotenv:
+
+```bash
+npm i dotenv
+```
+
+Create a file called `.env` in the root of the project. Add the environment variables in the file:
+
+```bash
+NODE_ENV=development
+PORT=3000
+```
+
+In the `index.js` file add the following code:
+
+```js
+require('dotenv').config();
+```
+
+Modify the package.json to have scripts for development and production:
+
+```json
+"scripts": {
+  "start:prod": "NODE_ENV=production node index.js",
+  "start:dev": "nodemon index.js"
+},
+```
+
+then run the app:
+
+```bash
+npm run start:dev
+npm run start:prod
+```
+
+
+
+
+
+
