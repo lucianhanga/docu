@@ -365,9 +365,3 @@ then run the app:
 npm run start:dev
 npm run start:prod
 ```
-
-
-
-
-
-

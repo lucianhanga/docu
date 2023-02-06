@@ -29,7 +29,6 @@ The packages have to installed locally in the project. They don't work globally.
 
 `eslint-plugin-react` is the package that is used to lint the code for React.
 
-
 ## Configuration
 
 The configuration file is: `.eslintrc.json`
