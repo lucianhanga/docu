@@ -6,8 +6,8 @@
 
 Formula:  $$ y = \beta_0 + \beta_1 x $$
 where:
-$y$ is the dependent variable, 
-$x$ is the independent variable, 
+$y$ is the dependent variable,
+$x$ is the independent variable,
 $\beta_0$ is the intercept, - intersection with the y axis,
 and $\beta_1$ is the slope.
 
@@ -53,4 +53,3 @@ calculated projection:
 ![Logistic Regression](./resources/LogisticRegresion3.png)
 
 The **threshold** is the point at which the probability of the positive class is `0.5`. The **threshold** can be adjusted to change the sensitivity and specificity of the model.
-
