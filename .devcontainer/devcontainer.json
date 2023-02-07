@@ -4,7 +4,7 @@
 	"name": "Documentation Environment",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "doc.app",
-	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"workspaceFolder": "/home/devlh/workspaces/${localWorkspaceFolderBasename}",
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 	// Configure tool-specific properties.
