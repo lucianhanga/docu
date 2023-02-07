@@ -112,3 +112,7 @@ const createTour = async (req, res) => {
 
 }
 ```
+
+## Schema Modification
+
+The **schema** can be updated also later on in the code by editing the old schema and creating a new model then the old values will be updated in the database.
