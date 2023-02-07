@@ -4,8 +4,8 @@
 ## What is Reinforcement Learning?
 
 **Environment** - the AI will perform in ca certain environment.
-**Agent** - It is the AI that will learn from the environment. 
-**Action** - The agent will perform certain **actions** in the **environment**. 
+**Agent** - It is the AI that will learn from the environment.
+**Action** - The agent will perform certain **actions** in the **environment**.
 **State** - The state of the agent in the environment which will be changed by the actions.
 **Reward** - The reward is the **feedback** from the environment to the agent. It is a number that indicates how good the agent performed in the current state.
 
@@ -35,7 +35,7 @@ The discount factor $\gamma$ is discounts the value of the state $s'$ as it is f
 
 **Markov process** is a stochastic process where the future is **independent** of the past given the present. The Markov property is that the future is independent of the past given the present.
 
-**Markov Decision Process** is a Markov process where the **agent** can choose an action. The agent will choose the action based on the reward. 
+**Markov Decision Process** is a Markov process where the **agent** can choose an action. The agent will choose the action based on the reward.
 
 $$ V(s) = \max _a (R(s,a) + \gamma  \sum _{s'} P(s,a,s') V(s') ) $$
 
@@ -75,7 +75,7 @@ easy representation:
 
 $$ Q(s,a) = R(s,a) + \gamma \max _{a'}Q(s',a') $$
 
-but keep in mind that by $ \gamma \max _{a'}Q(s',a') $ we mean $\sum _{s'} P(s,a,s') \max _{a'} (Q(s',a')) $
+but keep in mind that by $ \gamma \max _{a'} Q(s',a') $ we mean $\sum_{s'} P(s,a,s') \max _{a'} (Q(s',a')) $
 
 The $Q(s,a)$ is the **quality** of the action $a$ in the state $s$ which is recalculated by the **reward** $R(s,a)$ and the **future reward** $ \gamma \max _{a'}Q(s',a') $.
 Then is compared with the current $Q(s,a)$  and the difference is calculated:
