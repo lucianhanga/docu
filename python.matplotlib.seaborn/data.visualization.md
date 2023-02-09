@@ -77,7 +77,26 @@ Is used to **communicate** the **message**. It is important to **highlight** the
 - Using inconsistent **colors** over multiple charts. Use same colors for the same series across multiple visuals.
 
 
+### Reading Data 
 
+Read data from .xls
+
+```python
+import pandas as pd
+df = pd.read_excel('data.xls')
+# add another column as difference between two columns by name
+df['diff'] = df['col1'] - df['col2']
+# add another column as difference between two columns by index
+df['diff'] = df.iloc[:, 0] - df.iloc[:, 1]
+# add another column as index 
+df['index'] = df.index
+```
+
+get information about the read data
+
+```python
+df.info()
+```
 
 
 
