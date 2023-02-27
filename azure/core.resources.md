@@ -77,3 +77,73 @@ Azure **Region Pairs** are **pairs** of **regions** that are **physically** **cl
 - **region pairs**
   - provides multi-region disaster recovery
 
+
+## Compute Resources
+
+Compute resources are those resources on-demand that provide CPU power, disk and memory storage, networking capabilities and operating systems.
+
+The most common example of **Compute resources** are **Virtual Machines**.
+
+
+## Storage Resources
+
+**Storage resources** are those resources on-demand that provide disk and memory storage.
+The most common example of **Storage resources** are **Storage Accounts**.
+
+- **Storage accounts** are **used** to **store** **data** of **various** **types** (blobs, files, tables, queues, disks, snapshots, backups, ...). **Storage accounts** are **used** to **support** **other** **Azure** **services** (Azure SQL Database, Azure Cosmos DB, Azure Data Lake Storage, Azure HDInsight, Azure Data Factory, Azure Stream Analytics, Azure Machine Learning, Azure Search, Azure IoT Hub, Azure Databricks, Azure Synapse Analytics, ...).
+
+- **Containers** are **used** to **organize** **blobs** and **files** within **storage accounts**.
+
+- **Disk storage** is **used** to **store** **virtual machine disks**.
+
+- **Azure Files** are **used** to **share** **files** between **virtual machines** and **on-premises** **servers**.
+
+- **Storage Tiers** are **used** to **store** **data** at **different** **costs** and **performance** levels.
+   - hot storage
+   - cool storage
+   - archive storage
+
+## Networking Resources
+
+**Networking resources** are those resources on-demand that provide networking capabilities.
+
+The most common example of **Networking resources** are **Virtual Networks**.
+
+- **Virtual Networks (vNet)** are used to connect Azure resources to **each other**, to **on-premises** resources, and over the Internet. They provide a secure network connection between **resources**.
+
+- **VPN Gateway** is used to connect **on-premises** **networks** to **Azure** **virtual networks** over **Site-to-Site** **VPN** connections.
+S2S - Site-to-Site VPN
+P2S - Point-to-Site VPN
+
+- **ExpressRoute** is used to create **private** connections between **Azure** and **on-premises** **networks**.
+
+
+## Additional Azure Services
+
+- **App Services** - Web Apps, Mobile Apps, API Apps, Logic Apps, ...
+- **Azure Container Services** - Azure Container Instances, Azure Kubernetes Service, Azure Service Fabric, ...
+- **Windows Virtual Desktop (WVD)** - is a **desktop and app virtualization** **service** that **runs** **on** **Azure**. It **provides** **Windows** **10** **virtual desktops** and applications on-demand or **on-premises**.
+- **Data Services** - Azure SQL Database, Azure Cosmos DB, Azure Data Lake Storage, Azure HDInsight, Azure Data Factory, Azure Stream Analytics, Azure Machine Learning, Azure Search, Azure IoT Hub, Azure Databricks, Azure Synapse Analytics, ...
+
+## Azure Internet of Things (IoT)
+- IoT Hub
+- IoT Central
+- Azure Sphere
+  
+## Big data an analytics
+- Azure HDInsight
+- Azure Databricks
+- Azure Synapse Analytics
+
+## Artificial Intelligence (AI) and Machine Learning (ML)
+- Azure Machine Learning
+- Cognitive Services
+- Bot Service
+  
+
+## Application Development
+
+- Azure DevOps
+- GitHub
+- GitHub actions for Azure
+- DevTest Labs
