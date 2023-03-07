@@ -100,3 +100,58 @@ az vm extension set \
   --protected-settings '{"commandToExecute": "./configure-nginx.sh"}'
 ```
 
+### List IP addresses
+
+```bash
+IPADDRESS="$(az vm list-ip-addresses \
+  --resource-group learn-68a1776c-a86a-4243-991c-fd71246767b7 \
+  --name my-vm \
+  --query "[].virtualMachine.network.publicIpAddresses[*].ipAddress" \
+  --output tsv)"
+# show the ipaddress
+echo $IPADDRESS
+# test if the webpage works
+curl --connect-timeout 5 http://$IPADDRESS
+```
+
+### List the Network Security Group
+
+Every VM on Azure is associated with at least one network security group. In this case, Azure created an NSG for you called `my-vmNSG`.
+
+```bash
+az network nsg list \
+  --resource-group learn-68a1776c-a86a-4243-991c-fd71246767b7 \
+  --query '[].name' \
+  --output tsv
+```
+
+list command to list the rules associated with the NSG named `my-vmNSG`:
+
+```bash
+az network nsg rule list \
+  --resource-group learn-68a1776c-a86a-4243-991c-fd71246767b7 \
+  --nsg-name my-vmNSG
+# or the short version of the output
+az network nsg rule list \
+  --resource-group learn-68a1776c-a86a-4243-991c-fd71246767b7 \
+  --nsg-name my-vmNSG \
+  --query '[].{Name:name, Priority:priority, Port:destinationPortRange, Access:access}' \
+  --output table
+```
+The last command listed above, use the --query argument to retrieve only the name, priority, affected ports, and access (Allow or Deny) for each rule.
+The priority of this rule is 1000. Rules are processed in priority order, with lower numbers processed before higher numbers.
+
+### Create a new rule in NSG
+
+create a rule called `allow-http` that **allows inbound access on port 80**:
+
+```bash
+az network nsg rule create \
+  --resource-group learn-68a1776c-a86a-4243-991c-fd71246767b7 \
+  --nsg-name my-vmNSG \
+  --name allow-http \
+  --protocol tcp \
+  --priority 100 \
+  --destination-port-range 80 \
+  --access Allow
+```
