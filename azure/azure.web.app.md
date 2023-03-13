@@ -12,7 +12,7 @@ az account list --output table
 # or 
 az account list --query "[].{name}" --output tsv
 # or search for a certain subscription
-az account list --query "[?contains(name, 'spo')].{name}" --output tsv
+az account list --query "[?contains(name, 'Spo')].{name}" --output tsv
 
 # set the subscription
 az account set --subscription "Visual Studio Enterprise"
