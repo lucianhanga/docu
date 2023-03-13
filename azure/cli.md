@@ -34,6 +34,70 @@ Login to Azure
 az login
 ```
 
+## GitHub CLI
+
+Windows PowerShell installation.
+First install `scoop`:
+
+
+```powershell
+# Optional: Needed to run a remote script the first time
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser 
+
+irm get.scoop.sh | iex
+```
+
+install the github cli
+
+```powershell
+scoop install gh
+```
+
+clone a repo:
+```powershell
+gh auth login
+gh repo clone lucianhanga/azure.devel
+```
+
+## JMSEPath - Query Azure CLI
+
+[JMSEPath refence](http://jmespath.org)
+
+
+`[?Title == 'Demo 1']`
+
+`[?contains(Title, 'Demo')]`
+
+`[?contains(*, 'Demo 1')]` - would return **any** item in the array where the value of **any** property would be **Demo 1**
+
+`[?starts_with(Title, 'Demo')]`
+
+`[?contains(Title, 'Demo') || contains(Title, 'Demo 2')]` - would return **any** item in the array where the value of **any** property would be **Demo 1** or **Demo 2**
+
+`[?contains(Title, 'Demo 1) && contains(Title, 'Demo 2')]` - would return **any** item in the array where the value of **any** property would be **Demo 1** and **Demo 2**
+
+`[?contains(Title, 'Demo 1') && contains(Title, 'Demo 2')].{Title: Title, Id: Id}` - would return **any** item in the array where the value of **any** property would be **Demo 1** and **Demo 2** and return only the **Title** and **Id** properties
+
+`[*].{Title: Title}` returns **all** items as array with a Title property.
+
+if the filter is applied on an object rather then a list of objects, and `value` is a property of the object, then the filter would be applied on the `value` of the property.
+`value[?Title == 'Garth North']`
+
+`value[?contains(Email, 'contoso')]`
+
+### Sorting
+
+`sort_by(@, &"Last Activity Date")`
+
+`reverse(sort_by(@, &"Last Activity Date"))`
+
+`reverse(sort_by(@, &"Viewed Or Edited File Count")) | [0]."User Principal Name"` -  would sort and return the User Principal Name for the user with the most edited files.
+
+`reverse(sort_by(@, &"Viewed Or Edited File Count")) | [?"Is Deleted" == 'False']."User Principal Name"` sorts by then Viewed Or Edited File Count, then filters out deleted users and finally returns the User Principal Name
+
+`reverse(sort_by(@, &"Viewed Or Edited File Count")) | [0:3]."User Principal Name"` - to get the top 3 items
+
+
 ### Install the functions core tools
 
 ```powershell
@@ -52,6 +116,8 @@ or
 ```powershell
 # create a new wen app in command line
 dotnet new webapp -f net6.0
+# install dev certificates
+dotnet dev-certs https --trust
 # run the application locally
 dotnet run --urls=https://localhost:5001/
 ```
