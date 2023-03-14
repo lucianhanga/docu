@@ -1,4 +1,35 @@
-# Azure - Command Line Interface (CLI)
+## Azure PowerShell 
+
+### Install the Azure PowerShell module
+
+first make sure that you have the latest version of PowerShell
+
+```powershell
+# check the version
+$PSVersionTable.PSVersion
+```
+
+install version 7.x
+
+```powershell
+# install the latest version of PowerShell
+winget search Microsoft.PowerShell
+winget install --id Microsoft.Powershell --source winget
+```
+install the Azure PowerShell module
+
+```powershell
+Install-Module -Name Az -AllowClobber -Scope CurrentUser
+# or 
+Install-Module -Name Az -Scope CurrentUser -Repository PSGallery -Force
+
+# login to Azure
+Connect-AzAccount
+```
+
+
+
+##  Azure - Command Line Interface (CLI)
 
 ### Install the Azure CLI on Ubuntu
 
