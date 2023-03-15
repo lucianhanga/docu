@@ -57,3 +57,36 @@ Creating an Azure virtual machine usually includes two steps:
 - Create a **resource group**. An Azure resource group is a logical container into which Azure resources are deployed and managed. A resource group must be created before a virtual machine.
 - Create a **virtual machine**.
 
+Reference:
+
+[Create ARM templates with Visual Studio Code](https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/quickstart-create-templates-use-visual-studio-code?tabs=CLI)
+
+Deploy the virtual machine using the Azure CLI:
+
+```powershell
+# Create a resource group for the VM
+az group create --name vm-group2 --location westeurope
+# deploy the VM
+az deployment group create `
+    --resource-group vm-group2 `
+    --template-file template.json `
+    --parameters parameters.json `
+    --parameters adminPassword=MyPassword123 `
+    --verbose `
+# deploy the vm using powershell
+New-AzResourceGroup -ResourceGroupName vm-group2 -Location eastus
+$securePassword=ConvertTo-SecureString "MyPassword123" -AsPlainText -Force
+New-AzResourceGroupDeployment `
+    -ResourceGroupName vm-group2 `
+    -TemplateFile template.json `
+    -TemplateParameterFile parameters.json `
+    -adminPassword $securePassword `
+    -verbose `
+    -AsJob `
+
+# see the jobs
+Get-Job
+```
+
+get the files from github: [template.json](https://github.com/lucianhanga/azure.devel/blob/main/vm.template.deployment/vm1.template/template.json) and [parameters.json](https://github.com/lucianhanga/azure.devel/blob/main/vm.template.deployment/vm1.template/parameters.json)
+e
