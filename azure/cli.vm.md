@@ -49,3 +49,11 @@ az vm start `
 az group delete --name vm1
 
 ```
+
+## Create a VM from a ARM Template
+
+Creating an Azure virtual machine usually includes two steps:
+
+- Create a **resource group**. An Azure resource group is a logical container into which Azure resources are deployed and managed. A resource group must be created before a virtual machine.
+- Create a **virtual machine**.
+
