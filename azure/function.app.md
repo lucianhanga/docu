@@ -80,3 +80,14 @@ publish the function app.
 az login
 func azure functionapp publish <function-app-name>
 ```
+
+## Develop an Azure Function using Visual Studio Code
+
+[function development with VS Code](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-function-vs-code?pivots=programming-language-python)
+or 
+[function development with VS Code](https://learn.microsoft.com/en-us/training/modules/develop-azure-functions/5-create-function-visual-studio-code)
+
+
+
+
+
