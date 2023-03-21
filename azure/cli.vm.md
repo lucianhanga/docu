@@ -89,4 +89,36 @@ Get-Job
 ```
 
 get the files from github: [template.json](https://github.com/lucianhanga/azure.devel/blob/main/vm.template.deployment/vm1.template/template.json) and [parameters.json](https://github.com/lucianhanga/azure.devel/blob/main/vm.template.deployment/vm1.template/parameters.json)
-e
+
+## Open a port on the VM
+
+```powershell
+# open a port on the VM
+az vm open-port `
+    --resource-group vm-group2 `
+    --name vm1 `
+    --port 80 `
+    --priority 1000 `
+    --verbose `
+# open a port on a VM using azure powershell
+# to be determined :)
+```
+
+## Specify the demployment mode
+
+```powershell
+# specify the deployment mode using CLI
+
+az deployment group create `
+  --mode Complete `
+  --name ExampleDeployment `
+  --resource-group ExampleResourceGroup `
+  --template-file storage.json `
+
+# specify the deployment mode using azure powershell
+New-AzResourceGroupDeployment `
+  -Mode Complete `
+  -Name ExampleDeployment `
+  -ResourceGroupName ExampleResourceGroup `
+  -TemplateFile c:\MyTemplates\storage.json `
+```
