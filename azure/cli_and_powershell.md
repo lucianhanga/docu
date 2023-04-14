@@ -6,6 +6,7 @@ first make sure that you have the latest version of PowerShell
 
 ```powershell
 # check the version
+$PSVersionTable.PSVersion
 ```
 
 install version 7.x
