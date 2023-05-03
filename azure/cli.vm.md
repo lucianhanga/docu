@@ -2,6 +2,8 @@
 
 ## Create a VM
 
+### Using CLI
+
 ```powershell
 
 # Create a resource group for the VM
@@ -47,6 +49,28 @@ az vm start `
 
 # delete the VM and all the resources
 az group delete --name vm1
+
+```
+
+### using Azure PowerShell
+
+```powershell
+# login
+Connect-AzAccount
+
+# create a resource group for VM
+Create-AzResourceGroup -Name vm1 -Location westeurope
+
+# create a VM
+New-AzVM `
+    -ResourceGroupName vm1 `
+    -Name vm1 `
+    -Location westeurope `
+    -Image UbuntuLTS `
+    -Credential (Get-Credential) `
+    -OpenPorts 22
+    -Size Standard_B1ls `
+    -GenerateSshKey `
 
 ```
 
