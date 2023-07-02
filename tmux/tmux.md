@@ -8,14 +8,17 @@ The powerfull multiplexer terminal:
 
 ### Detach from a session
 
-``` Ctrl+b d```
+`Ctrl+b d`
 
 ### List all sessions
 
 ```bash
+
 $ tmux ls
 0: 1 windows (created Sat Dec 12 15:03:37 2020) (attached)
 ```
+
+
 ### Attach to a running session
 
 ```tmux a -t session-name```
@@ -53,6 +56,13 @@ no server running on /tmp/tmux-0/default
 ```Cltrl+b ↑ ```
 ```Cltrl+b → ```
 ```Cltrl+b ↓ ```
+
+resize a pane
+
+```Ctrl+b : resize-pane -D 10```
+```Ctrl+b : resize-pane -U 10```
+```Ctrl+b : resize-pane -L 10```
+```Ctrl+b : resize-pane -R 10```
 
 
 
