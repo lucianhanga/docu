@@ -4,14 +4,17 @@
 
 Since I'm using windows one easy choice for me is to use a virtual machine with linux installed. I'm using VirtualBox to setup the "bare metal system + basic **cent-os** linux system" virtual machine.
 
+download the cent-os virtualbox drive from [here](https://www.osboxes.org/centos/)
+
+
 ### Office Laptop
 
 #### The office wifi:
 
-| Device | IP | MAC |
-| --- | --- | --- |
+| Device             | IP           | MAC |
+| ------------------ | ------------ | --- |
 | ansible-controller | 192.168.1.27 | --- |
-| ansible-target1  | 192.168.1.86 | --- |
+| ansible-target1    | 192.168.1.86 | --- |
 
 
 edit the /etc/hosts file to add the aliases
@@ -50,12 +53,20 @@ sudo vi /etc/hostname
 
 #### The home wifi:
 
-| Device | IP | MAC |
-| --- | --- | --- |
+| Device             | IP  | MAC |
+| ------------------ | --- | --- |
 | ansible-controller | --- | --- |
-| ansible-target1  | --- | --- |
+| ansible-target1    | --- | --- |
 
 ### Personal Laptop - MSI
+
+#### The office wifi:
+
+| Device             | IP           | MAC |
+| ------------------ | ------------ | --- |
+| ansible-controller | 192.168.1.27 | --- |
+| ansible-target1    | 192.168.1.86 | --- |
+
 
 
 ### Install Ansible
