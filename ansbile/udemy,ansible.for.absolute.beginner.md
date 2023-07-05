@@ -15,6 +15,7 @@ download the cent-os virtualbox drive from [here](https://www.osboxes.org/centos
 | ------------------ | ------------ | --- |
 | ansible-controller | 192.168.1.27 | --- |
 | ansible-target1    | 192.168.1.86 | --- |
+| ansible-target2    | 192.168.1.240 | --- |
 
 
 edit the /etc/hosts file to add the aliases
@@ -23,6 +24,7 @@ edit the /etc/hosts file to add the aliases
 # office ansible machines for ansible learning lab
 192.168.1.27    office-ansible-controller
 192.168.1.86    office-ansible-target1
+192.168.1.240   office-ansible-target2
 ```
 
 
@@ -31,6 +33,7 @@ setup certificate authentication for easy ssh login
 # execute on the laptop bash shell
 ssh-keygen -t rsa # on the laptop bash
 ssh-copy-id osboxes@office-ansible-target1 # on the laptop bash
+ssh-copy-id osboxes@office-ansible-target2 # on the laptop bash
 ssh-copy-id osboxes@office-ansible-controller # on the laptop bash
 ```
 
@@ -39,6 +42,7 @@ setup alias for easy ssh login
 # execute on the laptop bash shell
 alias ssh-office-ansible-controller='ssh osboxes@office-ansible-controller'
 alias ssh-office-ansible-target1='ssh osboxes@office-ansible-target1'
+alias ssh-office-ansible-target2='ssh osboxes@office-ansible-target2'
 ```
 
 inside the controller and target machines update also the /etc/hosts file to add the aliases accordingly and also put the correct machine name in the /etc/hostname file
@@ -145,4 +149,23 @@ examples:
 
 `winX ansible_host=server3.company.com ansible_connection=winrm ansible_port=3333`
 `web ansible_host=server1.company.com ansible_connection=ssh ansible_port=2222`
+
+the `ansible_user` and `ansible_password` can be set in the inventory file but it is not recommended to do so because it is a security risk. Instead it is recommended to use the `ansible-vault` to encrypt the password and use it in the inventory file.
+
+the ansible parameter for ssh user name is `ansible_user` and for password is `ansible_ssh_pass`
+
+for ssh with key authentication the parameter is `ansible_ssh_private_key_file` and the value is the path to the private key file
+
+### example of inventory file
+
+```ansible
+target1 ansible_host=office-ansible-target1 ansible_user=osboxes ansible_ssh_private_key_file=~/.ssh/id_rsa
+```
+
+and the command to ping the target1 machine is:
+
+```bash
+# execute on the controller bash shell
+ansible target1 -m ping
+```
 
