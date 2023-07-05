@@ -53,19 +53,42 @@ sudo vi /etc/hostname
 
 #### The home wifi:
 
-| Device             | IP  | MAC |
-| ------------------ | --- | --- |
-| ansible-controller | --- | --- |
-| ansible-target1    | --- | --- |
+| Device | IP | MAC |
+| --- | --- | --- |
+| ansible-controller | 10.0.0.56 | --- |
+| ansible-target1    | 10.0.0.57 | --- |
+
+edit the /etc/hosts file to add the aliases
+
+```bash
+# office ansible machines for ansible learning lab
+10.0.0.56    office-ansible-controller
+10.0.0.57    office-ansible-target1
+```
+
+setup alias for easy ssh login
+```bash
+# execute on the laptop bash shell
+alias ssh-office-ansible-controller='ssh osboxes@office-ansible-controller'
+alias ssh-office-ansible-target1='ssh osboxes@office-ansible-target1'
+```
+
+inside the controller and target machines update also the /etc/hosts file to add the aliases accordingly and also put the correct machine name in the /etc/hostname file
+
+```bash
+# execute on the controller and targets bash shell
+sudo vi /etc/hosts
+sudo vi /etc/hostname
+```
 
 ### Personal Laptop - MSI
 
-#### The office wifi:
+#### The home wifi:
 
 | Device             | IP           | MAC |
 | ------------------ | ------------ | --- |
-| ansible-controller | 192.168.1.27 | --- |
-| ansible-target1    | 192.168.1.86 | --- |
+| ansible-controller |  --- | --- |
+| ansible-target1    |  --- | --- |
 
 
 
